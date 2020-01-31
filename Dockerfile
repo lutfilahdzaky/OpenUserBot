@@ -7,7 +7,7 @@ FROM alpine:edge
 RUN sed -e 's;^#http\(.*\)/edge/community;http\1/edge/community;g' -i /etc/apk/repositories
 
 #
-# Installing Packages
+# Installing Packs
 #
 RUN apk add --no-cache=true --update \
         bash \
