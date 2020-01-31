@@ -123,7 +123,7 @@ async def carbon_api(e):
 @register(outgoing=True, pattern="^.img (.*)")
 async def img_sampler(event):
     """ For .img command, search and return images matching the query. """
-    await event.edit("Processing...")
+    await event.edit("Sedang Mencari Gambar...")
     query = event.pattern_match.group(1)
     lim = findall(r"lim=\d+", query)
     try:
@@ -493,7 +493,7 @@ async def yt_search(video_q):
         )
         return
 
-    await video_q.edit("```Processing...```")
+    await video_q.edit("```Sedang Mencari Konten...```")
 
     full_response = await youtube_search(query)
     videos_json = full_response[1]
@@ -612,7 +612,7 @@ async def download_video(v_url):
         video = True
 
     try:
-        await v_url.edit("`Fetching data, please wait..`")
+        await v_url.edit("`Mencari data, Sabar Ya Njeng..`")
         with YoutubeDL(opts) as rip:
             rip_data = rip.extract_info(url)
     except DownloadError as DE:
