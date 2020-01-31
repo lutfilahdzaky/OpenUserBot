@@ -21,7 +21,7 @@ from userbot.events import register
 async def who(event):
 
     await event.edit(
-        "`Sit tight while I steal some data from *Global Network Zone*...`")
+        "`Sedang Mencoba Mencari Informasi Dari Anonymous...`")
 
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
@@ -129,7 +129,7 @@ async def fetch_info(replied_user, event):
         "This User has no Username")
     user_bio = "This User has no About" if not user_bio else user_bio
 
-    caption = "<b>USER INFO:</b>\n\n"
+    caption = "<b>INFO SIKAMPRET:</b>\n\n"
     caption += f"First Name: {first_name}\n"
     caption += f"Last Name: {last_name}\n"
     caption += f"Username: {username}\n"
