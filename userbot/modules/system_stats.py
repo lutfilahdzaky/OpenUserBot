@@ -145,7 +145,7 @@ async def amireallyalive(on):
                      f"Python: {python_version()} \n"
                      f"------------------------------------ \n"
                      f"User: {DEFAULTUSER} \n"
-		             f"Username: {username} \n"
+		             f"Username: {user.username} \n"
 		             f"------------------------------------ \n"
                      "`")    
 
