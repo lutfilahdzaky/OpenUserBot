@@ -19,10 +19,15 @@ from telethon.tl.types import InputStickerSetID
 from telethon.tl.types import DocumentAttributeSticker
 
 KANGING_STR = [
-    "Stiker Siapa Nih Njeng\nGue Save Ya Kontol...",
-    "Tercuri hehe...",
-    "BUTUH JASA KANG STIKER? PM @AkameNFS",
-]
+    "H3h3 gue mintak tikel lu ya cok.h3h3.",
+    "Kang dulu ah...",
+    "Roses are red violets are blue,\nBesok gue peled, banyak bacot lu sue",
+    "Kang adalah bentuk apresiasi,tanpa tanda jasa...",
+    "Kamu diem aja,\nNanti kakak jajanin",
+    "Sticker kamu bagus,\nSaya mintak ya...",
+    "Dua Tiga Kayu Bakar,\nMemeq Cyna Mekar-Mekar",
+  ]
+
 
 
 @register(outgoing=True, pattern="^.kang")
@@ -64,16 +69,16 @@ async def kang(args):
             is_anim = True
             photo = 1
         else:
-            await args.edit("`Gak Bisa Tolol!`")
+            await args.edit("`Unsupported File!`")
             return
     else:
-        await args.edit("`Tolol, Mana Bisa Anjing...`")
+        await args.edit("`I can't kang that...`")
         return
 
     if photo:
         splat = args.text.split()
         if not emojibypass:
-            emoji = "😝"
+            emoji = "🤔"
         pack = 1
         if len(splat) == 3:
             pack = splat[2]  # User sent both
@@ -161,7 +166,7 @@ async def kang(args):
                         await bot.send_read_acknowledge(conv.chat_id)
                         await args.edit(f"`Sticker added in a Different Pack !\
                             \nThis Pack is Newly created!\
-                            \nDah Selesai Njeng Klik [Disini](t.me/addstickers/{packname})",
+                            \nYour pack can be found [here](t.me/addstickers/{packname})",
                                         parse_mode='md')
                         return
                 if is_anim:
@@ -185,7 +190,7 @@ async def kang(args):
                 # Ensure user doesn't get spamming notifications
                 await bot.send_read_acknowledge(conv.chat_id)
         else:
-            await args.edit("`Membuat Pack Baru ....`")
+            await args.edit("`Brewing a new Pack...`")
             async with bot.conversation('Stickers') as conv:
                 await conv.send_message(cmd)
                 await conv.get_response()
@@ -229,8 +234,7 @@ async def kang(args):
                 # Ensure user doesn't get spamming notifications
                 await bot.send_read_acknowledge(conv.chat_id)
 
-        await args.edit(f"`Stiker Dah Selesai Bangsat!`\
-            \nStikernya Bangsat Klik [Disini](t.me/addstickers/{packname})",
+        await args.edit(f"`Success!.` get [here](t.me/addstickers/{packname}) buddy...",
                         parse_mode='md')
 
 
