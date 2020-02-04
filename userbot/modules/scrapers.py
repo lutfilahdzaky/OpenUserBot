@@ -21,7 +21,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
 from wikipedia import summary
 from wikipedia.exceptions import DisambiguationError, PageError
-import asyncurban
+from urbandict import define
 from requests import get
 from search_engine_parser import GoogleSearch
 from google_images_download import google_images_download
@@ -47,14 +47,14 @@ TTS_LANG = "en"
 TRT_LANG = "en"
 
 
-@register(outgoing=True, pattern="^\.crblang (.*)")
+@register(outgoing=True, pattern="^.crblang (.*)")
 async def setlang(prog):
     global CARBONLANG
     CARBONLANG = prog.pattern_match.group(1)
     await prog.edit(f"Language for carbon.now.sh set to {CARBONLANG}")
 
 
-@register(outgoing=True, pattern="^\.carbon")
+@register(outgoing=True, pattern="^.carbon")
 async def carbon_api(e):
     """ A Wrapper for carbon.now.sh """
     await e.edit("`Processing..`")
@@ -120,7 +120,7 @@ async def carbon_api(e):
     await e.delete()  # Deleting msg
 
 
-@register(outgoing=True, pattern="^\.img (.*)")
+@register(outgoing=True, pattern="^.img (.*)")
 async def img_sampler(event):
     """ For .img command, search and return images matching the query. """
     await event.edit("Processing...")
@@ -151,7 +151,7 @@ async def img_sampler(event):
     await event.delete()
 
 
-@register(outgoing=True, pattern="^\.currency (.*)")
+@register(outgoing=True, pattern="^.currency (.*)")
 async def moni(event):
     input_str = event.pattern_match.group(1)
     input_sgra = input_str.split(" ")
@@ -179,7 +179,7 @@ async def moni(event):
         return
 
 
-@register(outgoing=True, pattern=r"^\.google (.*)")
+@register(outgoing=True, pattern=r"^.google (.*)")
 async def gsearch(q_event):
     """ For .google command, do a Google search. """
     match = q_event.pattern_match.group(1)
@@ -194,7 +194,7 @@ async def gsearch(q_event):
     gsearch = GoogleSearch()
     gresults = await gsearch.async_search(*search_args)
     msg = ""
-    for i in range(len(gresults["links"])):
+    for i in range(10):
         try:
             title = gresults["titles"][i]
             link = gresults["links"][i]
@@ -213,7 +213,7 @@ async def gsearch(q_event):
         )
 
 
-@register(outgoing=True, pattern=r"^\.wiki (.*)")
+@register(outgoing=True, pattern=r"^.wiki (.*)")
 async def wiki(wiki_q):
     """ For .wiki command, fetch content from Wikipedia. """
     match = wiki_q.pattern_match.group(1)
@@ -245,27 +245,26 @@ async def wiki(wiki_q):
             BOTLOG_CHATID, f"Wiki query `{match}` was executed successfully")
 
 
-@register(outgoing=True, pattern="^\.ud (.*)")
+@register(outgoing=True, pattern="^.ud (.*)")
 async def urban_dict(ud_e):
     """ For .ud command, fetch content from Urban Dictionary. """
     await ud_e.edit("Processing...")
     query = ud_e.pattern_match.group(1)
-    urban_dict_helper = asyncurban.UrbanDictionary()
     try:
-        urban_def = await urban_dict_helper.get_word(query)
-    except asyncurban.WordNotFoundError:
+        define(query)
+    except HTTPError:
         await ud_e.edit(f"Sorry, couldn't find any results for: {query}")
         return
-    deflen = sum(len(i) for i in urban_def.definition)
-    exalen = sum(len(i) for i in urban_def.example)
+    mean = define(query)
+    deflen = sum(len(i) for i in mean[0]["def"])
+    exalen = sum(len(i) for i in mean[0]["example"])
     meanlen = deflen + exalen
     if int(meanlen) >= 0:
         if int(meanlen) >= 4096:
             await ud_e.edit("`Output too large, sending as file.`")
             file = open("output.txt", "w+")
-            file.write("Text: " + query + "\n\nMeaning: " +
-                       urban_def.definition + "\n\n" + "Example: \n" +
-                       urban_def.example)
+            file.write("Text: " + query + "\n\nMeaning: " + mean[0]["def"] +
+                       "\n\n" + "Example: \n" + mean[0]["example"])
             file.close()
             await ud_e.client.send_file(
                 ud_e.chat_id,
@@ -276,17 +275,17 @@ async def urban_dict(ud_e):
             await ud_e.delete()
             return
         await ud_e.edit("Text: **" + query + "**\n\nMeaning: **" +
-                        urban_def.definition + "**\n\n" + "Example: \n__" +
-                        urban_def.example + "__")
+                        mean[0]["def"] + "**\n\n" + "Example: \n__" +
+                        mean[0]["example"] + "__")
         if BOTLOG:
             await ud_e.client.send_message(
-                BOTLOG_CHATID, "UrbanDictionary query for `" + query +
-                "` executed successfully.")
+                BOTLOG_CHATID,
+                "ud query `" + query + "` executed successfully.")
     else:
         await ud_e.edit("No result found for **" + query + "**")
 
 
-@register(outgoing=True, pattern=r"^\.tts(?: |$)([\s\S]*)")
+@register(outgoing=True, pattern=r"^.tts(?: |$)([\s\S]*)")
 async def text_to_speech(query):
     """ For .tts command, a wrapper for Google Text-to-Speech. """
     textx = await query.get_reply_message()
@@ -332,7 +331,7 @@ async def text_to_speech(query):
 
 
 # kanged from Blank-x ;---;
-@register(outgoing=True, pattern="^\.imdb (.*)")
+@register(outgoing=True, pattern="^.imdb (.*)")
 async def imdb(e):
     try:
         movie_name = e.pattern_match.group(1)
@@ -415,7 +414,7 @@ async def imdb(e):
         await e.edit("Plox enter **Valid movie name** kthx")
 
 
-@register(outgoing=True, pattern=r"^\.trt(?: |$)([\s\S]*)")
+@register(outgoing=True, pattern=r"^.trt(?: |$)([\s\S]*)")
 async def translateme(trans):
     """ For .trt command, translate the given text using Google Translate. """
     translator = Translator()
@@ -447,7 +446,7 @@ async def translateme(trans):
         )
 
 
-@register(pattern="^\.lang (trt|tts) (.*)", outgoing=True)
+@register(pattern=".lang (trt|tts) (.*)", outgoing=True)
 async def lang(value):
     """ For .lang command, change the default langauge of userbot scrapers. """
     util = value.pattern_match.group(1).lower()
@@ -482,7 +481,7 @@ async def lang(value):
             f"`Language for {scraper} changed to {LANG.title()}.`")
 
 
-@register(outgoing=True, pattern="^\.yt (.*)")
+@register(outgoing=True, pattern="^.yt (.*)")
 async def yt_search(video_q):
     """ For .yt command, do a YouTube search from Telegram. """
     query = video_q.pattern_match.group(1)
