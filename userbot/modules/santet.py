@@ -7,9 +7,9 @@ from userbot.events import register
 
 @register(outgoing=True, pattern='^.santet(?: |$)(.*)')
 async def typewriter(typew):
-	message = typew.pattern_match.group(1)
-	await typew.edit("`Memulai Menyantet Korban...`")
-	sleep(1)
+message = typew.pattern_match.group(1)
+await typew.edit("`Memulai Menyantet Korban...`")
+sleep(1)
 await typew.edit("`Mencari Informasi Korban`")
 sleep(1)
 await typew.edit("`Informasi Didapatkan`")
