@@ -60,7 +60,7 @@ RUN python3 -m ensurepip \
 #
 # Clone repo and prepare working directory
 #
-RUN git clone https://github.com/RizkyNFS/AkameBot /root/userbot
+RUN git clone https://github.com/Rizkyawan028/OpenUserBot /root/userbot
 RUN mkdir /root/userbot/bin/
 WORKDIR /root/userbot/
 
