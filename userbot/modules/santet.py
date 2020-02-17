@@ -18,6 +18,7 @@ await typew.edit("`Mengirim Santen Diproses`")
 sleep(1)
 	await typew.edit("0%")
 	number = 1
+sleep(1)
 	await typew.edit(str(number) + "%   ▎")
 	number = number+ 1
 	sleep(0.03)
