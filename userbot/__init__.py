@@ -206,6 +206,7 @@ COUNT_MSG = 0
 USERS = {}
 COUNT_PM = {}
 LASTMSG = {}
+ZALG_LIST = {}
 CMD_HELP = {}
 ISAFK = False
 AFKREASON = None
