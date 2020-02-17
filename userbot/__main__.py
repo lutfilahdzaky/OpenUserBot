@@ -29,7 +29,7 @@ for module_name in ALL_MODULES:
 LOGS.info("You are running OpenUserBot [v7.7.7]")
 
 LOGS.info(
-    "Bot Telah Aktif, \n"
+    "😀😃😄😁😆😅😂🤣😭😗😙😚😘☺️😊🥰😍🤩🤗🙂🙃😉😋😝😝😜🤪🤔🤨🧐🙄😏😒😣😔😌☹️🙁😕😟🥺😬🤐🤫🤭😰😨😧😦😮😯😲😳🤯😢😥😓😞😖😩😫😵😱🤢🤮🤧😷🥴🤒🤕🥵🥶😶😐😑😤😠😡🤬😈👿🤤😴😪😇🤠🤡🤑🥳😎🤓🤥"
     "Creator: http://t.me/AkameNFS")
 
 if len(argv) not in (1, 3, 4):
