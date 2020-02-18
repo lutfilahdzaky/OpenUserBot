@@ -1,4 +1,4 @@
-# We're using Alpine Edge
+# We're using Alpine 
 FROM alpine:edge
 
 # We have to uncomment Community repo for some packages
