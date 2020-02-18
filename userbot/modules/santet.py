@@ -10,6 +10,10 @@ async def typewriter(typew):
 	message = typew.pattern_match.group(1)
 	await typew.edit("`Sedang Menyantet Korban...\nMampus Kau Anjeng!`")
 	sleep(5)
+	await typew.edit("`Sedang Mencari Informasi Korban...\n50%!`")
+	sleep(5)
+	await typew.edit("`Informasi Ditemukan...\nMengirim Santet Diproses!`")
+	sleep(5)
 	await typew.edit("0%")
 	number = 1
 	await typew.edit(str(number) + "%   ▎")
