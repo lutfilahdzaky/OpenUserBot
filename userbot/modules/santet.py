@@ -318,6 +318,8 @@ async def typewriter(typew):
 	await typew.edit("`Korban Berhasil Disantet!`")
 	sleep(5)
 	await typew.edit("`Tapi Boong, Hiyak Hiyak Hiyak!`")
+	sleep(5)
+	await typew.edit("`Tertipu Kamu Bangsat!`")
 	# I did it for two hours :D just ctrl+c - crtl+v
 
 
