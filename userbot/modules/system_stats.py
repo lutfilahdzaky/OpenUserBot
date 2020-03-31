@@ -147,7 +147,7 @@ async def amireallyalive(on):
                      f"Info User \n"
                      f"Nama Lengkap: {DEFAULTUSER} \n"
                      f"------------------------------------ \n"
-		             f"Creator Bot: t.me/AkameNFS \n"
+		             f"Creator: t.me/AkameNFS \n"
 		             f"------------------------------------ \n"
                      "`")    
 
